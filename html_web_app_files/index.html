@@ -1,0 +1,42 @@
+<form id="post_data">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Message</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type Message Here">
+      <input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+<div>
+<p id= "get_api_data">
+</p>
+</div>
+  <script>  
+  // fatch  get api 
+  fetch('https://tbbgrldzs4.execute-api.us-east-1.amazonaws.com/dev/messages').then((getapi)=>{
+  console.log(getapi);
+  return getapi.text();})
+  .then((actualdata)=>{
+  //console.log(actualdata);
+  const view_data = actualdata
+  document.getElementById('get_api_data').innerHTML=view_data;
+  }).catch((error)=>{
+console.log(error)
+});
+</script>
+
+<script>
+  const post_data = document.getElementById('post_data') ;
+  post_data.addEventListener('submit',function(postdata){
+    postdata.preventDefault();
+   // const formData =formData(this);
+    fetch('https://tbbgrldzs4.execute-api.us-east-1.amazonaws.com/dev/messages',{
+    method : 'post',
+    body : formData
+}).then(function(response){
+      return response.text();
+}).then(function(text){
+ console.log(text);
+}).catch(function(error){
+ console.log(error);
+})
+});
+</script>
+  
